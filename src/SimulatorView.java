@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SimulatorView extends JFrame {
     private CarParkView carParkView;
@@ -15,9 +17,25 @@ public class SimulatorView extends JFrame {
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
         
         carParkView = new CarParkView();
-
+        JButton step1 = new JButton("1 step");
+        step1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                //run(1);
+            }
+        });
+        JButton step100 = new JButton("100 steps");
+        step100.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                //run(100);
+            }
+        });
+        JPanel westControls = new JPanel();
+        westControls.setLayout(new GridLayout(2,1));
+        westControls.add(step1);
+        westControls.add(step100);
         Container contentPane = getContentPane();
         //contentPane.add(stepLabel, BorderLayout.NORTH);
+        contentPane.add(westControls, BorderLayout.WEST);
         contentPane.add(carParkView, BorderLayout.CENTER);
         //contentPane.add(population, BorderLayout.SOUTH);
         pack();
