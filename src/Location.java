@@ -30,6 +30,7 @@ public class Location {
     /**
      * Return a string of the form floor,row,place.
      * @return A string representation of the location.
+     * test
      */
     public String toString() {
         return floor + "," + row + "," + place;
