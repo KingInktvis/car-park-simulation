@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SimulatorView extends JFrame {
+
     private CarParkView carParkView;
     private int numberOfFloors;
     private int numberOfRows;

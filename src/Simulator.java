@@ -97,9 +97,14 @@ public class Simulator {
             if (car == null) {
                 break;
             }
-            car.setIsPaying(true);
-            if(){}
-            paymentCarQueue.addCar(car);
+
+            if(car instanceof ParkingPass){
+                simulatorView.removeCarAt(car.getLocation());
+                exitCarQueue.addCar(car);
+            }else{
+                car.setIsPaying(true);
+                paymentCarQueue.addCar(car);
+            }
         }
 
         // Let cars pay.
