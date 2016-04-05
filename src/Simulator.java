@@ -13,7 +13,7 @@ public class Simulator {
 
     private int tickPause = 100;
 
-    int weekDayArrivals= 50; // average number of arriving cars per hour
+    int weekDayArrivals = 50; // average number of arriving cars per hour
     int weekendArrivals = 90; // average number of arriving cars per hour
 
     int enterSpeed = 3; // number of cars that can enter per minute
@@ -63,7 +63,13 @@ public class Simulator {
 
         // Add the cars to the back of the queue.
         for (int i = 0; i < numberOfCarsPerMinute; i++) {
-            Car car = new AdHocCar();
+            double rand = Math.random();
+            Car car;
+            if(rand < 0.7) {
+                car = new AdHocCar();
+            }else{
+                car = new ParkingPass();
+            }
             entranceCarQueue.addCar(car);
         }
 
@@ -92,6 +98,7 @@ public class Simulator {
                 break;
             }
             car.setIsPaying(true);
+            if(){}
             paymentCarQueue.addCar(car);
         }
 
