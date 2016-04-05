@@ -9,8 +9,10 @@ public class SimulatorView extends JFrame {
     private int numberOfRows;
     private int numberOfPlaces;
     private Car[][][] cars;
+    private Simulator simulator;
 
-    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+    public SimulatorView(Simulator simulator, int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+        this.simulator = simulator;
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
@@ -20,13 +22,13 @@ public class SimulatorView extends JFrame {
         JButton step1 = new JButton("1 step");
         step1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                //run(1);
+                simulator.run(1);
             }
         });
         JButton step100 = new JButton("100 steps");
         step100.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                //run(100);
+                simulator.run(100);
             }
         });
         JPanel westControls = new JPanel();
