@@ -36,18 +36,19 @@ public class Simulator {
     private void tick() {
         // Advance the time by one minute.
         minute++;
-        while (minute > 59) {
+        if (minute > 59) {
             minute -= 60;
             hour++;
-        }
-        while (hour > 23) {
-            hour -= 24;
-            day++;
-        }
-        while (day > 6) {
-            day -= 7;
-        }
 
+            if (hour > 23) {
+                hour -= 24;
+                day++;
+                if (day > 6) {
+                    day -= 7;
+                }
+            }
+
+        }
         Random random = new Random();
 
         // Get the average number of cars that arrive per hour.
