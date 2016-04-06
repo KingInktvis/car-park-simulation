@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class Simulator {
+public class Simulator implements Runnable{
 
     private CarQueue entranceCarQueue;
     private CarQueue paymentCarQueue;
@@ -11,7 +11,7 @@ public class Simulator {
     private int hour = 0;
     private int minute = 0;
 
-    private int tickPause = 100;
+    private int tickPause = 5;
 
     int weekDayArrivals = 50; // average number of arriving cars per hour
     int weekendArrivals = 90; // average number of arriving cars per hour
@@ -20,6 +20,9 @@ public class Simulator {
     int paymentSpeed = 10; // number of cars that can pay per minute
     int exitSpeed = 9; // number of cars that can leave per minute
 
+    private boolean run = false;
+    private int timesToRun = 0;
+
     public Simulator() {
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
@@ -27,11 +30,6 @@ public class Simulator {
         simulatorView = new SimulatorView(this, 3, 6, 30);
     }
 
-    public void run(int number) {
-        for (int i = 0; i < number; i++) {
-            tick();
-        }
-    }
     private void minuteTick(){
         // Advance the time by one minute.
         minute++;
@@ -159,7 +157,38 @@ public class Simulator {
         // Update the car park view.
         simulatorView.updateView();
 
-        // Pause.
+
+    }
+
+    public void start(){
+        run = true;
+    }
+    public void start(int times){
+        run = true;
+        timesToRun = times;
+    }
+    public void stop(){
+        run = false;
+    }
+
+    @Override
+    public void run(){
+        if(timesToRun == 0)
+            while (run) {
+                tick();
+                pause();
+            }
+        else {
+            for (int i = 0; i < timesToRun && run; i++) {
+                tick();
+                System.out.println(i);
+                pause();
+            }
+            timesToRun = 0;
+        }
+        stop();
+    }
+    public void pause(){
         try {
             Thread.sleep(tickPause);
         } catch (InterruptedException e) {

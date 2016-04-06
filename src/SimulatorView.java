@@ -11,6 +11,7 @@ public class SimulatorView extends JFrame {
     private int numberOfPlaces;
     private Car[][][] cars;
     private Simulator simulator;
+    private Thread simThread;
 
     public SimulatorView(Simulator simulator, int numberOfFloors, int numberOfRows, int numberOfPlaces) {
         this.simulator = simulator;
@@ -18,24 +19,50 @@ public class SimulatorView extends JFrame {
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
-        
+
+
+
         carParkView = new CarParkView(this);
         JButton step1 = new JButton("1 step");
         step1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                simulator.run(1);
+                if(simThread == null)
+                    new Thread(simulator).start();
+                simulator.start(1);
             }
         });
         JButton step100 = new JButton("100 steps");
         step100.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                simulator.run(100);
+                if(simThread == null)
+                    new Thread(simulator).start();
+                simulator.start(100);
+            }
+        });
+
+        JButton start = new JButton("Start");
+        start.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(simThread == null)
+                    new Thread(simulator).start();
+                simulator.start();
+            }
+        });
+
+        JButton stop = new JButton("Stop");
+        stop.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent actionEvent) {
+                if(simThread == null)
+                    new Thread(simulator).start();
+                simulator.stop();
             }
         });
         JPanel westControls = new JPanel();
         westControls.setLayout(new GridLayout(2,1));
         westControls.add(step1);
         westControls.add(step100);
+        westControls.add(start);
+        westControls.add(stop);
         Container contentPane = getContentPane();
         //contentPane.add(stepLabel, BorderLayout.NORTH);
         contentPane.add(westControls, BorderLayout.WEST);
