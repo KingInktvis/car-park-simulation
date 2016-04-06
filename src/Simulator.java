@@ -32,8 +32,7 @@ public class Simulator {
             tick();
         }
     }
-
-    private void tick() {
+    private void minuteTick(){
         // Advance the time by one minute.
         minute++;
         if (minute > 59) {
@@ -49,20 +48,11 @@ public class Simulator {
             }
 
         }
-        Random random = new Random();
+    }
 
-        // Get the average number of cars that arrive per hour.
-        int averageNumberOfCarsPerHour = day < 5
-                ? weekDayArrivals
-                : weekendArrivals;
-
-        // Calculate the number of cars that arrive this minute.
-        double standardDeviation = averageNumberOfCarsPerHour * 0.1;
-        double numberOfCarsPerHour = averageNumberOfCarsPerHour + random.nextGaussian() * standardDeviation;
-        int numberOfCarsPerMinute = (int)Math.round(numberOfCarsPerHour / 60);
-
+    private void addEntranceCars(int numberOfCars){
         // Add the cars to the back of the queue.
-        for (int i = 0; i < numberOfCarsPerMinute; i++) {
+        for (int i = 0; i < numberOfCars; i++) {
             double rand = Math.random();
             Car car;
             if(rand < 0.7) {
@@ -72,7 +62,9 @@ public class Simulator {
             }
             entranceCarQueue.addCar(car);
         }
+    }
 
+    private void parkCar(Random random){
         // Remove car from the front of the queue and assign to a parking space.
         for (int i = 0; i < enterSpeed; i++) {
             Car car = entranceCarQueue.removeCar();
@@ -87,10 +79,9 @@ public class Simulator {
                 car.setMinutesLeft(stayMinutes);
             }
         }
+    }
 
-        // Perform car park tick.
-        simulatorView.tick();
-
+    private void leavingCars(){
         // Add leaving cars to the exit queue.
         while (true) {
             Car car = simulatorView.getFirstLeavingCar();
@@ -106,7 +97,9 @@ public class Simulator {
                 paymentCarQueue.addCar(car);
             }
         }
+    }
 
+    private void payTicket(){
         // Let cars pay.
         for (int i = 0; i < paymentSpeed; i++) {
             Car car = paymentCarQueue.removeCar();
@@ -117,7 +110,9 @@ public class Simulator {
             simulatorView.removeCarAt(car.getLocation());
             exitCarQueue.addCar(car);
         }
+    }
 
+    private void carsExit(){
         // Let cars leave.
         for (int i = 0; i < exitSpeed; i++) {
             Car car = exitCarQueue.removeCar();
@@ -126,6 +121,40 @@ public class Simulator {
             }
             // Bye!
         }
+    }
+
+    private int averageCarsPerHour(){
+        // Get the average number of cars that arrive per hour.
+        int averageNumberOfCarsPerHour = day < 5
+                ? weekDayArrivals
+                : weekendArrivals;
+        return averageNumberOfCarsPerHour;
+    }
+
+    private int carPerMinute(Random random){
+        int averageNumberOfCarsPerHour = averageCarsPerHour();
+        // Calculate the number of cars that arrive this minute.
+        double standardDeviation = averageNumberOfCarsPerHour * 0.1;
+        double numberOfCarsPerHour = averageNumberOfCarsPerHour + random.nextGaussian() * standardDeviation;
+        int numberOfCarsPerMinute = (int)Math.round(numberOfCarsPerHour / 60);
+        return numberOfCarsPerMinute;
+    }
+
+    private void tick() {
+        Random random = new Random();
+
+        int numberOfCarsPerMinute = carPerMinute(random);
+
+        addEntranceCars(numberOfCarsPerMinute);
+
+        parkCar(random);
+
+        // Perform car park tick.
+        simulatorView.tick();
+
+        leavingCars();
+
+        carsExit();
 
         // Update the car park view.
         simulatorView.updateView();
