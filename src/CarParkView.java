@@ -4,6 +4,7 @@ import java.awt.*;
 /**
  * Created by rik on 4/5/16.
  */
+
 public class CarParkView extends JPanel {
 
     private Dimension size;
@@ -56,7 +57,17 @@ public class CarParkView extends JPanel {
                 for(int place = 0; place < simulatorView.getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = simulatorView.getCarAt(location);
-                    Color color = car == null ? Color.white : Color.red;
+                    Color color = Color.white;
+                    if(car != null)
+                        switch(car.getClass().getName()){
+                            case "AdHocCar":
+                                color = Color.red;
+                                break;
+                            case "ParkingPass":
+                                color = Color.blue;
+                                break;
+                        }
+                   // Color color = car == null ? Color.white : Color.red;
                     drawPlace(graphics, location, color);
                 }
             }
