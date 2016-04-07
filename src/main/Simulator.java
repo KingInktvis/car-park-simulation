@@ -1,3 +1,13 @@
+package main;
+
+import controller.*;
+import main.*;
+import model.*;
+import runner.*;
+import view.*;
+
+import view.SimulatorView;
+
 import java.util.Random;
 
 public class Simulator implements Runnable{
@@ -65,13 +75,13 @@ public class Simulator implements Runnable{
     private void parkCar(Random random){
         // Remove car from the front of the queue and assign to a parking space.
         for (int i = 0; i < enterSpeed; i++) {
-            Car car = entranceCarQueue.removeCar();
-            if (car == null) {
-                break;
-            }
             // Find a space for this car.
             Location freeLocation = simulatorView.getFirstFreeLocation();
             if (freeLocation != null) {
+                Car car = entranceCarQueue.removeCar();
+                if (car == null) {
+                    break;
+                }
                 simulatorView.setCarAt(freeLocation, car);
                 int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
                 car.setMinutesLeft(stayMinutes);

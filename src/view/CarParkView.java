@@ -1,3 +1,11 @@
+package view;
+
+import controller.*;
+import main.*;
+import model.*;
+import runner.*;
+import view.*;
+
 import javax.swing.*;
 import java.awt.*;
 
