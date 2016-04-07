@@ -4,7 +4,6 @@ import controller.*;
 import main.*;
 import model.*;
 import runner.*;
-import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -68,10 +67,10 @@ public class CarParkView extends JPanel {
                     Color color = Color.white;
                     if(car != null)
                         switch(car.getClass().getName()){
-                            case "AdHocCar":
+                            case "model.AdHocCar":
                                 color = Color.red;
                                 break;
-                            case "ParkingPass":
+                            case "model.ParkingPass":
                                 color = Color.blue;
                                 break;
                         }

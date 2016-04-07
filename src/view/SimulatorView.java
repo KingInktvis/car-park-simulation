@@ -4,7 +4,6 @@ import controller.*;
 import main.*;
 import model.*;
 import runner.*;
-import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,11 +17,11 @@ public class SimulatorView extends JFrame {
     private int numberOfRows;
     private int numberOfPlaces;
     private Car[][][] cars;
-    private Simulator simulator;
+    private Controller controller;
     private Thread simThread;
 
-    public SimulatorView(Simulator simulator, int numberOfFloors, int numberOfRows, int numberOfPlaces) {
-        this.simulator = simulator;
+    public SimulatorView(Controller controller, int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+        this.controller = controller;
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
@@ -35,16 +34,16 @@ public class SimulatorView extends JFrame {
         step1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 if(simThread == null)
-                    new Thread(simulator).start();
-                simulator.start(1);
+                    new Thread(controller).start();
+                controller.start(1);
             }
         });
         JButton step100 = new JButton("100 steps");
         step100.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 if(simThread == null)
-                    new Thread(simulator).start();
-                simulator.start(100);
+                    new Thread(controller).start();
+                controller.start(100);
             }
         });
 
@@ -52,8 +51,8 @@ public class SimulatorView extends JFrame {
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 if(simThread == null)
-                    new Thread(simulator).start();
-                simulator.start();
+                    new Thread(controller).start();
+                controller.start();
             }
         });
 
@@ -61,8 +60,8 @@ public class SimulatorView extends JFrame {
         stop.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 if(simThread == null)
-                    new Thread(simulator).start();
-                simulator.stop();
+                    new Thread(controller).start();
+                controller.stop();
             }
         });
         JPanel westControls = new JPanel();
