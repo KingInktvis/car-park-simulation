@@ -66,16 +66,18 @@ public class CarParkView extends JPanel {
                     Location location = new Location(floor, row, place);
                     Car car = simulatorView.getCarAt(location);
                     Color color = Color.white;
+                    System.out.println(car != null ? car.getClass().getName() : "");
                     if(car != null)
                         switch(car.getClass().getName()){
-                            case "AdHocCar":
+                            case "model.AdHocCar":
                                 color = Color.red;
+
                                 break;
-                            case "ParkingPass":
+                            case "model.ParkingPass":
                                 color = Color.blue;
                                 break;
                         }
-                   // Color color = car == null ? Color.white : Color.red;
+
                     drawPlace(graphics, location, color);
                 }
             }

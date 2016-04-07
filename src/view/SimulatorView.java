@@ -83,7 +83,7 @@ public class SimulatorView extends JFrame {
     }
 
     public void updateView() {
-        carParkView.updateView();
+         carParkView.updateView();
     }
 
     public int getNumberOfFloors() {
