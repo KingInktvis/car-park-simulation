@@ -28,18 +28,22 @@ public class Controller extends Config implements Runnable{
     private int timesToRun = 0;
     private SimulatorView simulatorView;
     private Time time;
+    private WestControls westControls;
 
-    public Controller(SimulatorView simulatorView, Time time, CreateQueues queues){
-        this.time = time;
+    public Controller(SimulatorView simulatorView, CreateQueues queues){
         this.simulatorView = simulatorView;
         this.queues = queues;
         setQueues();
+        westControls = new WestControls(this);
+        simulatorView.addWest(westControls);
+        simulatorView.pack();
     }
 
     private void setQueues(){
         entranceCarQueue = queues.getEntranceCarQueue();
         paymentCarQueue = queues.getPaymentCarQueue();
         exitCarQueue = queues.getExitCarQueue();
+        this.time = queues.getTime();
     }
 
     private void minuteTick(){

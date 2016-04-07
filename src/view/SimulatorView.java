@@ -19,9 +19,10 @@ public class SimulatorView extends JFrame {
     private Car[][][] cars;
     private Controller controller;
     private Thread simThread;
+    private JPanel west;
 
-    public SimulatorView(Controller controller, int numberOfFloors, int numberOfRows, int numberOfPlaces) {
-        this.controller = controller;
+    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+        //this.controller = controller;
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
@@ -30,7 +31,7 @@ public class SimulatorView extends JFrame {
 
 
         carParkView = new CarParkView(this);
-        JButton step1 = new JButton("1 step");
+        /*JButton step1 = new JButton("1 step");
         step1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
                 if(simThread == null)
@@ -69,10 +70,10 @@ public class SimulatorView extends JFrame {
         westControls.add(step1);
         westControls.add(step100);
         westControls.add(start);
-        westControls.add(stop);
+        westControls.add(stop);*/
         Container contentPane = getContentPane();
         //contentPane.add(stepLabel, BorderLayout.NORTH);
-        contentPane.add(westControls, BorderLayout.WEST);
+        //contentPane.add(westControls, BorderLayout.WEST);
         contentPane.add(carParkView, BorderLayout.CENTER);
         //contentPane.add(population, BorderLayout.SOUTH);
         pack();
@@ -80,6 +81,8 @@ public class SimulatorView extends JFrame {
 
         updateView();
     }
+
+
 
     public void updateView() {
         carParkView.updateView();
@@ -101,7 +104,7 @@ public class SimulatorView extends JFrame {
         if (!locationIsValid(location)) {
             return null;
         }
-            return cars[location.getFloor()][location.getRow()][location.getPlace()];
+        return cars[location.getFloor()][location.getRow()][location.getPlace()];
     }
     
     public boolean setCarAt(Location location, Car car) {
@@ -141,6 +144,7 @@ public class SimulatorView extends JFrame {
                 }
             }
         }
+
         return null;
     }
     
@@ -157,6 +161,11 @@ public class SimulatorView extends JFrame {
             }
         }
         return null;
+    }
+
+    public void addWest(JPanel west){
+        this.west = west;
+        getContentPane().add(west, BorderLayout.WEST);
     }
     
     public void tick() {
@@ -183,6 +192,5 @@ public class SimulatorView extends JFrame {
         return true;
     }
     
-
 
 }

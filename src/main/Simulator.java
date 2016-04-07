@@ -7,23 +7,21 @@ import runner.*;
 import view.*;
 
 import java.util.Random;
+import java.util.concurrent.SynchronousQueue;
 
 public class Simulator {
 
 
     private SimulatorView simulatorView;
-    private Time time;
     private Controller controller;
     private CreateQueues queues;
 
 
-
-
     public Simulator() {
         queues = new CreateQueues();
-        time = new Time();
-        controller = new Controller();
-        simulatorView = new SimulatorView(controller, 3, 6, 30);
+        simulatorView = new SimulatorView(3, 6, 30);
+        controller = new Controller(simulatorView, queues);
+        System.out.println("yo");
     }
 
 
