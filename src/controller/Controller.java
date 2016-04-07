@@ -168,6 +168,7 @@ public class Controller extends Config implements Runnable{
     public void start(int times){
         run = true;
         timesToRun = times;
+        run();
     }
     public void stop(){
         run = false;

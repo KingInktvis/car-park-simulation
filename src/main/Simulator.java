@@ -21,7 +21,6 @@ public class Simulator {
         queues = new CreateQueues();
         simulatorView = new SimulatorView(3, 6, 30);
         controller = new Controller(simulatorView, queues);
-        System.out.println("yo");
     }
 
 

@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 public class WestControls extends JPanel{
 
     private Controller controller;
+    private Thread simThread;
 
     public WestControls(Controller controller){
         this.controller = controller;
