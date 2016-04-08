@@ -25,6 +25,7 @@ public class Controller extends Config implements Runnable{
     private SimulatorNotView simulatorNotView;
     private Time time;
     private Controls controls;
+    private EastControls eastControls;
 
     public Controller(SimulatorNotView simulatorNotView, CreateQueues queues){
         this.simulatorNotView = simulatorNotView;
@@ -32,6 +33,8 @@ public class Controller extends Config implements Runnable{
         setQueues();
         controls = new Controls(this, simulatorNotView);
         simulatorNotView.addWest(controls);
+        eastControls = new EastControls(this, simulatorNotView);
+        simulatorNotView.addEast(eastControls);
         simulatorNotView.pack();
     }
 

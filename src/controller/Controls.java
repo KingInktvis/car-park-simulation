@@ -48,36 +48,13 @@ public class Controls extends JPanel{
             }
         });
 
-        JButton qvButton = new JButton("Show Queues");
-        qvButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent){
-                simulatorNotView.queueView.makeFrame();
-            }
-        });
-
-        JButton manButton = new JButton("Manage");
-       /* qvButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent){
-                simulatorNotView.queueView.makeFrame();
-            }
-        });*/
-        JButton statButton = new JButton("Stats");
-       /* qvButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent){
-                simulatorNotView.queueView.makeFrame();
-            }
-        });*/
-
         setLayout(new GridLayout(2,1));
         add(step1);
         add(step100);
         add(start);
         add(stop);
 
-        sim.getContentPane().add(qvButton, BorderLayout.EAST);
-        sim.getContentPane().add(manButton, BorderLayout.EAST);
-        sim.getContentPane().add(statButton, BorderLayout.EAST);
-       // add(qvButton, BorderLayout.EAST);
+
 
     }
     private void makeThread(){

@@ -17,6 +17,7 @@ public class SimulatorNotView extends JFrame {
     private int numberOfPlaces;
     private Car[][][] cars;
     private JPanel west;
+    private JPanel east;
 
     public SimulatorNotView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
         //this.controller = controller;
@@ -124,6 +125,11 @@ public class SimulatorNotView extends JFrame {
     public void addWest(JPanel west){
         this.west = west;
         getContentPane().add(west, BorderLayout.WEST);
+    }
+
+    public void addEast(JPanel east){
+        this.east = east;
+        getContentPane().add(east, BorderLayout.EAST);
     }
     
     public void tick() {
