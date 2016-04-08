@@ -1,10 +1,5 @@
 package model;
 
-import controller.*;
-import main.*;
-import runner.*;
-import view.*;
-
 public abstract class Car {
 
     private Location location;

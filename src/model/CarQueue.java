@@ -1,10 +1,5 @@
 package model;
 
-import controller.*;
-import main.*;
-import runner.*;
-import view.*;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
