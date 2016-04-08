@@ -4,7 +4,6 @@ import controller.*;
 import main.*;
 import model.*;
 import runner.*;
-import view.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,11 +17,12 @@ public class SimulatorView extends JFrame {
     private int numberOfRows;
     private int numberOfPlaces;
     private Car[][][] cars;
-    private Simulator simulator;
+    private Controller controller;
     private Thread simThread;
+    private JPanel west;
 
-    public SimulatorView(Simulator simulator, int numberOfFloors, int numberOfRows, int numberOfPlaces) {
-        this.simulator = simulator;
+    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+        //this.controller = controller;
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
@@ -31,49 +31,9 @@ public class SimulatorView extends JFrame {
 
 
         carParkView = new CarParkView(this);
-        JButton step1 = new JButton("1 step");
-        step1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(simThread == null)
-                    new Thread(simulator).start();
-                simulator.start(1);
-            }
-        });
-        JButton step100 = new JButton("100 steps");
-        step100.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(simThread == null)
-                    new Thread(simulator).start();
-                simulator.start(100);
-            }
-        });
 
-        JButton start = new JButton("Start");
-        start.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(simThread == null)
-                    new Thread(simulator).start();
-                simulator.start();
-            }
-        });
-
-        JButton stop = new JButton("Stop");
-        stop.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(simThread == null)
-                    new Thread(simulator).start();
-                simulator.stop();
-            }
-        });
-        JPanel westControls = new JPanel();
-        westControls.setLayout(new GridLayout(2,1));
-        westControls.add(step1);
-        westControls.add(step100);
-        westControls.add(start);
-        westControls.add(stop);
         Container contentPane = getContentPane();
         //contentPane.add(stepLabel, BorderLayout.NORTH);
-        contentPane.add(westControls, BorderLayout.WEST);
         contentPane.add(carParkView, BorderLayout.CENTER);
         //contentPane.add(population, BorderLayout.SOUTH);
         pack();
@@ -81,6 +41,8 @@ public class SimulatorView extends JFrame {
 
         updateView();
     }
+
+
 
     public void updateView() {
          carParkView.updateView();
@@ -102,7 +64,7 @@ public class SimulatorView extends JFrame {
         if (!locationIsValid(location)) {
             return null;
         }
-            return cars[location.getFloor()][location.getRow()][location.getPlace()];
+        return cars[location.getFloor()][location.getRow()][location.getPlace()];
     }
     
     public boolean setCarAt(Location location, Car car) {
@@ -142,6 +104,7 @@ public class SimulatorView extends JFrame {
                 }
             }
         }
+
         return null;
     }
     
@@ -158,6 +121,11 @@ public class SimulatorView extends JFrame {
             }
         }
         return null;
+    }
+
+    public void addWest(JPanel west){
+        this.west = west;
+        getContentPane().add(west, BorderLayout.WEST);
     }
     
     public void tick() {
@@ -184,6 +152,5 @@ public class SimulatorView extends JFrame {
         return true;
     }
     
-
 
 }
