@@ -168,12 +168,19 @@ public class Controller extends Config implements Runnable{
     public void start(int times){
         run = true;
         timesToRun = times;
-        run();
     }
     public void stop(){
         run = false;
     }
 
+
+    public void pause(){
+        try {
+            Thread.sleep(tickPause);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void run(){
         if(timesToRun == 0)
@@ -191,12 +198,4 @@ public class Controller extends Config implements Runnable{
         }
         stop();
     }
-    public void pause(){
-        try {
-            Thread.sleep(tickPause);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

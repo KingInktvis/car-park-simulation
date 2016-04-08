@@ -21,16 +21,16 @@ public class WestControls extends JPanel{
         JButton step1 = new JButton("1 step");
         step1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                //if(simThread == null)
-                    //new Thread(controller).start();
+                if(simThread == null)
+                    new Thread(controller).start();
                 controller.start(1);
             }
         });
         JButton step100 = new JButton("100 steps");
         step100.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                //if(simThread == null)
-                    //new Thread(controller).start();
+                if(simThread == null)
+                    new Thread(controller).start();
                 controller.start(100);
             }
         });
@@ -38,8 +38,8 @@ public class WestControls extends JPanel{
         JButton start = new JButton("Start");
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                //if(simThread == null)
-                    //new Thread(controller).start();
+                if(simThread == null)
+                    new Thread(controller).start();
                 controller.start();
             }
         });
@@ -47,8 +47,8 @@ public class WestControls extends JPanel{
         JButton stop = new JButton("Stop");
         stop.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
-                //if(simThread == null)
-                    //new Thread(controller).start();
+                if(simThread == null)
+                    new Thread(controller).start();
                 controller.stop();
             }
         });

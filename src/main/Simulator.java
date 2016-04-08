@@ -20,8 +20,7 @@ public class Simulator {
     public Simulator() {
         queues = new CreateQueues();
         simulatorView = new SimulatorView(3, 6, 30);
-        controller = new Controller(simulatorView, queues);
+        new Thread(new Controller(simulatorView, queues));
     }
-
 
 }

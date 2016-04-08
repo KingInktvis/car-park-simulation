@@ -31,49 +31,9 @@ public class SimulatorView extends JFrame {
 
 
         carParkView = new CarParkView(this);
-        /*JButton step1 = new JButton("1 step");
-        step1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(simThread == null)
-                    new Thread(controller).start();
-                controller.start(1);
-            }
-        });
-        JButton step100 = new JButton("100 steps");
-        step100.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(simThread == null)
-                    new Thread(controller).start();
-                controller.start(100);
-            }
-        });
 
-        JButton start = new JButton("Start");
-        start.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(simThread == null)
-                    new Thread(controller).start();
-                controller.start();
-            }
-        });
-
-        JButton stop = new JButton("Stop");
-        stop.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent actionEvent) {
-                if(simThread == null)
-                    new Thread(controller).start();
-                controller.stop();
-            }
-        });
-        JPanel westControls = new JPanel();
-        westControls.setLayout(new GridLayout(2,1));
-        westControls.add(step1);
-        westControls.add(step100);
-        westControls.add(start);
-        westControls.add(stop);*/
         Container contentPane = getContentPane();
         //contentPane.add(stepLabel, BorderLayout.NORTH);
-        //contentPane.add(westControls, BorderLayout.WEST);
         contentPane.add(carParkView, BorderLayout.CENTER);
         //contentPane.add(population, BorderLayout.SOUTH);
         pack();
