@@ -18,7 +18,7 @@ public class Controller extends Config implements Runnable{
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
-    private int tickPause = 5;
+    private int tickPause = 100;
     int weekDayArrivals = 50; // average number of arriving cars per hour
     int weekendArrivals = 90; // average number of arriving cars per hour
     int enterSpeed = 3; // number of cars that can enter per minuteint paymentSpeed = 10; // number of cars that can pay per minute
@@ -191,11 +191,11 @@ public class Controller extends Config implements Runnable{
         else {
             for (int i = 0; i < timesToRun && run; i++) {
                 tick();
-                System.out.println(i);
+               // System.out.println(i);
                 pause();
             }
             timesToRun = 0;
         }
-        stop();
+        this.stop();
     }
 }
