@@ -1,10 +1,6 @@
 package runner;
 
-import controller.*;
-import main.*;
-import model.*;
-import runner.*;
-import view.*;
+import main.Simulator;
 /**
  * Created by rik on 3/31/16.
  */

@@ -1,11 +1,5 @@
 package model;
 
-import controller.*;
-import main.*;
-import model.*;
-import runner.*;
-import view.*;
-
 public class Location {
 
     private int floor;

@@ -1,28 +1,25 @@
 package view;
 
-import controller.*;
-import main.*;
-import model.*;
-import runner.*;
+import controller.SimulatorNotView;
+import model.Car;
+import model.Location;
 
-import javax.swing.*;
 import java.awt.*;
 
 /**
  * Created by rik on 4/5/16.
  */
 
-public class CarParkView extends JPanel {
+public class CarParkView extends AbstractView {
 
     private Dimension size;
     private Image carParkImage;
-    private SimulatorView simulatorView;
 
     /**
      * Constructor for objects of class CarPark
      */
-    public CarParkView(SimulatorView simulatorView) {
-        this.simulatorView = simulatorView;
+    public CarParkView(SimulatorNotView simulatorNotView) {
+        super(simulatorNotView);
         size = new Dimension(0, 0);
     }
 
@@ -52,6 +49,7 @@ public class CarParkView extends JPanel {
         }
     }
 
+    @Override
     public void updateView() {
         // Create a new car park image if the size has changed.
         if (!size.equals(getSize())) {
@@ -59,11 +57,11 @@ public class CarParkView extends JPanel {
             carParkImage = createImage(size.width, size.height);
         }
         Graphics graphics = carParkImage.getGraphics();
-        for(int floor = 0; floor < simulatorView.getNumberOfFloors(); floor++) {
-            for(int row = 0; row < simulatorView.getNumberOfRows(); row++) {
-                for(int place = 0; place < simulatorView.getNumberOfPlaces(); place++) {
+        for(int floor = 0; floor < simulatorNotView.getNumberOfFloors(); floor++) {
+            for(int row = 0; row < simulatorNotView.getNumberOfRows(); row++) {
+                for(int place = 0; place < simulatorNotView.getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                    Car car = simulatorView.getCarAt(location);
+                    Car car = simulatorNotView.getCarAt(location);
                     Color color = Color.white;
                     System.out.println(car != null ? car.getClass().getName() : "");
                     if(car != null)

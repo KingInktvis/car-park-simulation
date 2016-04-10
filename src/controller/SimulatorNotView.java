@@ -1,27 +1,25 @@
-package view;
+package controller;
 
-import controller.*;
-import main.*;
-import model.*;
-import runner.*;
+import model.Car;
+import model.Location;
+import view.CarParkView;
+import view.QueueView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class SimulatorView extends JFrame {
+public class SimulatorNotView extends JFrame {
 
     private CarParkView carParkView;
+    protected QueueView queueView;
     private int numberOfFloors;
     private int numberOfRows;
     private int numberOfPlaces;
     private Car[][][] cars;
-    private Controller controller;
-    private Thread simThread;
     private JPanel west;
+    private JPanel east;
 
-    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+    public SimulatorNotView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
         //this.controller = controller;
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
@@ -31,6 +29,7 @@ public class SimulatorView extends JFrame {
 
 
         carParkView = new CarParkView(this);
+        queueView = new QueueView(this);
 
         Container contentPane = getContentPane();
         //contentPane.add(stepLabel, BorderLayout.NORTH);
@@ -126,6 +125,11 @@ public class SimulatorView extends JFrame {
     public void addWest(JPanel west){
         this.west = west;
         getContentPane().add(west, BorderLayout.WEST);
+    }
+
+    public void addEast(JPanel east){
+        this.east = east;
+        getContentPane().add(east, BorderLayout.EAST);
     }
     
     public void tick() {

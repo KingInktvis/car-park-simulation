@@ -1,6 +1,4 @@
-package view;
-
-import controller.Controller;
+package controller;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,14 +8,15 @@ import java.awt.event.ActionListener;
 /**
  * Created by rik on 7-4-16.
  */
-public class WestControls extends JPanel{
+public class Controls extends JPanel{
 
     private Controller controller;
     private Thread simThread;
+    private SimulatorNotView simulatorNotView;
 
-    public WestControls(Controller controller){
+    public Controls(Controller controller, SimulatorNotView sim){
         this.controller = controller;
-
+        this.simulatorNotView = sim;
         JButton step1 = new JButton("1 step");
         step1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent) {
@@ -48,11 +47,15 @@ public class WestControls extends JPanel{
                 controller.stop();
             }
         });
+
         setLayout(new GridLayout(2,1));
         add(step1);
         add(step100);
         add(start);
         add(stop);
+
+
+
     }
     private void makeThread(){
         if(simThread == null){

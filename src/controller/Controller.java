@@ -1,10 +1,6 @@
 package controller;
 
-import controller.*;
-import main.*;
 import model.*;
-import runner.*;
-import view.*;
 
 import java.util.Random;
 
@@ -18,7 +14,7 @@ public class Controller extends Config implements Runnable{
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
-    private int tickPause = 100;
+    private int tickPause = 5;
     int weekDayArrivals = 50; // average number of arriving cars per hour
     int weekendArrivals = 90; // average number of arriving cars per hour
     int enterSpeed = 3; // number of cars that can enter per minuteint paymentSpeed = 10; // number of cars that can pay per minute
@@ -26,17 +22,20 @@ public class Controller extends Config implements Runnable{
 
     private boolean run = false;
     private int timesToRun = 0;
-    private SimulatorView simulatorView;
+    private SimulatorNotView simulatorNotView;
     private Time time;
-    private WestControls westControls;
+    private Controls controls;
+    private EastControls eastControls;
 
-    public Controller(SimulatorView simulatorView, CreateQueues queues){
-        this.simulatorView = simulatorView;
+    public Controller(SimulatorNotView simulatorNotView, CreateQueues queues){
+        this.simulatorNotView = simulatorNotView;
         this.queues = queues;
         setQueues();
-        westControls = new WestControls(this);
-        simulatorView.addWest(westControls);
-        simulatorView.pack();
+        controls = new Controls(this, simulatorNotView);
+        simulatorNotView.addWest(controls);
+        eastControls = new EastControls(this, simulatorNotView);
+        simulatorNotView.addEast(eastControls);
+        simulatorNotView.pack();
     }
 
     private void setQueues(){
@@ -64,17 +63,18 @@ public class Controller extends Config implements Runnable{
         }
     }
 
+
     private void parkCar(Random random){
         // Remove car from the front of the queue and assign to a parking space.
         for (int i = 0; i < enterSpeed; i++) {
             // Find a space for this car.
-            Location freeLocation = simulatorView.getFirstFreeLocation();
+            Location freeLocation = simulatorNotView.getFirstFreeLocation();
             if (freeLocation != null) {
                 Car car = entranceCarQueue.removeCar();
                 if (car == null) {
                     break;
                 }
-                simulatorView.setCarAt(freeLocation, car);
+                simulatorNotView.setCarAt(freeLocation, car);
                 int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
                 car.setMinutesLeft(stayMinutes);
             }
@@ -84,13 +84,13 @@ public class Controller extends Config implements Runnable{
     private void leavingCars(){
         // Add leaving cars to the exit queue.
         while (true) {
-            Car car = simulatorView.getFirstLeavingCar();
+            Car car = simulatorNotView.getFirstLeavingCar();
             if (car == null) {
                 break;
             }
 
             if(car instanceof ParkingPass){
-                simulatorView.removeCarAt(car.getLocation());
+                simulatorNotView.removeCarAt(car.getLocation());
                 exitCarQueue.addCar(car);
             }else{
                 car.setIsPaying(true);
@@ -107,7 +107,7 @@ public class Controller extends Config implements Runnable{
                 break;
             }
             // TODO Handle payment.
-            simulatorView.removeCarAt(car.getLocation());
+            simulatorNotView.removeCarAt(car.getLocation());
             exitCarQueue.addCar(car);
         }
     }
@@ -150,14 +150,14 @@ public class Controller extends Config implements Runnable{
         parkCar(random);
 
         // Perform car park tick.
-        simulatorView.tick();
+        simulatorNotView.tick();
         payTicket();
         leavingCars();
 
         carsExit();
 
         // Update the car park view.
-        simulatorView.updateView();
+        simulatorNotView.updateView();
 
 
     }
