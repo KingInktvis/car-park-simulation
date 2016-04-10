@@ -1,17 +1,29 @@
 package controller;
 
 import model.Car;
+import model.CreateQueues;
 import model.Location;
+import view.AbstractView;
 import view.CarParkView;
 import view.QueueView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class SimulatorNotView extends JFrame {
 
     private CarParkView carParkView;
     protected QueueView queueView;
+    //protected ManagementView manView;
+    //protected StatsView statView;
+    private ArrayList<AbstractView> views;
+    private CreateQueues queues;
+
+    protected JFrame queueViewFrame;
+    protected JFrame manViewFrame;
+    protected JFrame statViewFrame;
+
     private int numberOfFloors;
     private int numberOfRows;
     private int numberOfPlaces;
@@ -19,17 +31,22 @@ public class SimulatorNotView extends JFrame {
     private JPanel west;
     private JPanel east;
 
-    public SimulatorNotView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+    public SimulatorNotView(int numberOfFloors, int numberOfRows, int numberOfPlaces, CreateQueues q) {
         //this.controller = controller;
+        this.queues = q;
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
 
-
+        queueViewFrame = makeFrame(new Dimension(250,100),"Queue Overview");
         carParkView = new CarParkView(this);
-        queueView = new QueueView(this);
+        queueView = new QueueView(this, this.queueViewFrame, this.queues);
+
+        views = new ArrayList<AbstractView>();
+        views.add(queueView);
+        views.add(carParkView);
 
         Container contentPane = getContentPane();
         //contentPane.add(stepLabel, BorderLayout.NORTH);
@@ -41,10 +58,21 @@ public class SimulatorNotView extends JFrame {
         updateView();
     }
 
+    private JFrame makeFrame(Dimension d, String name){
+        JFrame f = new JFrame(name);
+        f.setVisible(false); // for clarity
+        f.setSize(d);
+        f.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        return f;
+    }
 
-
+    public void showFrame(JFrame f){
+        f.setVisible(true);
+    }
     public void updateView() {
-        carParkView.updateView();
+        for(AbstractView e: views){
+            e.updateView();
+        }
     }
 
     public int getNumberOfFloors() {

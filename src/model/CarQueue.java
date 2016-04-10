@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -14,4 +15,13 @@ public class CarQueue {
         return queue.poll();
     }
 
+    public int countCars(){
+        Iterator<Car> i = queue.iterator();
+        int count = 0;
+        while(i.hasNext()){
+            i.next();
+            count++;
+        }
+        return count;
+    }
 }
