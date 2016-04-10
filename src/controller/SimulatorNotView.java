@@ -6,6 +6,7 @@ import model.Location;
 import view.AbstractView;
 import view.CarParkView;
 import view.QueueView;
+import view.StatView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,15 +15,16 @@ import java.util.ArrayList;
 public class SimulatorNotView extends JFrame {
 
     private CarParkView carParkView;
-    protected QueueView queueView;
+    private QueueView queueView;
+    private StatView statView;
     //protected ManagementView manView;
     //protected StatsView statView;
     private ArrayList<AbstractView> views;
     private CreateQueues queues;
 
     protected JFrame queueViewFrame;
-    protected JFrame manViewFrame;
-    protected JFrame statViewFrame;
+    private JFrame manViewFrame;
+    private JFrame statViewFrame;
 
     private int numberOfFloors;
     private int numberOfRows;
@@ -41,10 +43,13 @@ public class SimulatorNotView extends JFrame {
 
 
         queueViewFrame = makeFrame(new Dimension(250,100),"Queue Overview");
+        statViewFrame = makeFrame(new Dimension(500,500), "Statistics");
+
+        statView = new StatView(this, statViewFrame, new StatControls(this));
         carParkView = new CarParkView(this);
         queueView = new QueueView(this, this.queueViewFrame, this.queues);
 
-        views = new ArrayList<AbstractView>();
+        views = new ArrayList<>();
         views.add(queueView);
         views.add(carParkView);
 
@@ -54,7 +59,7 @@ public class SimulatorNotView extends JFrame {
         //contentPane.add(population, BorderLayout.SOUTH);
         pack();
         setVisible(true);
-
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         updateView();
     }
 
