@@ -17,8 +17,11 @@ public class ReservationController {
 
     public void reserve(Time startTime, Time stopTime){
         Location location = simulatorNotView.getFirstLastLocation();
-        ReservedSpot reservedspot = new ReservedSpot(startTime, stopTime, location);
-        reservations.addReservation(reservedspot);
+        if(location != null){
+            ReservedSpot reservedspot = new ReservedSpot(startTime, stopTime, location);
+            reservations.addReservation(reservedspot);
+        }
+
     }
 
     public void officeReserve(){
