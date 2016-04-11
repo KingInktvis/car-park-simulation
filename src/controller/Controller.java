@@ -65,6 +65,8 @@ public class Controller extends Config implements Runnable{
             Car car;
             if(rand < 0.7) {
                 car = new AdHocCar();
+            }else if(rand < 0.8){
+                car = new Reservation();
             }else{
                 car = new ParkingPass();
             }

@@ -11,6 +11,10 @@ public class Time {
 
     public Time(){}
 
+    public Time(int hour){
+        this.hour = hour;
+    }
+
     public int getDay() {
         return day;
     }

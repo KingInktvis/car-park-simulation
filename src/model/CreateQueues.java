@@ -9,12 +9,14 @@ public class CreateQueues {
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
     private Time time;
+    private Reservations reservations;
 
     public CreateQueues(){
         entranceCarQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
         time = new Time();
+        reservations = new Reservations();
     }
 
     public CarQueue getEntranceCarQueue() {
@@ -31,5 +33,9 @@ public class CreateQueues {
 
     public Time getTime() {
         return time;
+    }
+
+    public Reservations getReservations() {
+        return reservations;
     }
 }
