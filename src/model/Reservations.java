@@ -10,6 +10,7 @@ public class Reservations {
 
     public Reservations (){
         reservedSpots = new ArrayList<ReservedSpot>();
+
     }
 
     public ArrayList<ReservedSpot> getReservedSpots() {

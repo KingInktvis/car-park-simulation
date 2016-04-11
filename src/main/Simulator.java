@@ -17,8 +17,6 @@ public class Simulator {
         queues = new CreateQueues();
         simulatorNotView = new SimulatorNotView(3, 6, 30, queues);
 
-        reservationController = new ReservationController(reservations, simulatorNotView);
-        reservationController.multiOfficeReserve(20);
         new Thread(new Controller(simulatorNotView, queues));
 
     }

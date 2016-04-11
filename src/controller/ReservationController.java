@@ -12,6 +12,7 @@ public class ReservationController {
     public ReservationController(Reservations reservations, SimulatorNotView simulatorNotView){
         this.reservations = reservations;
         this.simulatorNotView = simulatorNotView;
+        multiOfficeReserve(20);
     }
 
     public void reserve(Time startTime, Time stopTime){

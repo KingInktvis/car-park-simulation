@@ -46,8 +46,8 @@ public class SimulatorNotView extends JFrame {
         queueViewFrame = makeFrame(new Dimension(250,100),"Queue Overview");
         statViewFrame = makeFrame(new Dimension(500,500), "Statistics");
         statView = new StatView(this, statViewFrame, new StatControls(this));
-
-        carParkView = new CarParkView(this, q.getReservations());
+        ReservationController reservationController = new ReservationController(queues.getReservations(), this);
+        carParkView = new CarParkView(this, reservationController);
         queueView = new QueueView(this, this.queueViewFrame, this.queues);
 
         views = new ArrayList<>();

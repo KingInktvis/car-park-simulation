@@ -1,8 +1,10 @@
 package view;
 
+import controller.ReservationController;
 import controller.SimulatorNotView;
 import model.Car;
 import model.Location;
+import model.Reservation;
 
 import java.awt.*;
 
@@ -14,13 +16,15 @@ public class CarParkView extends AbstractView {
 
     private Dimension size;
     private Image carParkImage;
+    private ReservationController reservationController;
 
     /**
      * Constructor for objects of class CarPark
      */
-    public CarParkView(SimulatorNotView simulatorNotView) {
+    public CarParkView(SimulatorNotView simulatorNotView, ReservationController reservationController) {
         super(simulatorNotView);
         size = new Dimension(0, 0);
+        this.reservationController = reservationController;
     }
 
     /**
@@ -63,7 +67,7 @@ public class CarParkView extends AbstractView {
                     Location location = new Location(floor, row, place);
                     Car car = simulatorNotView.getCarAt(location);
                     Color color = Color.white;
-                    if(isReserved){
+                    if(reservationController.isReserved(location)){
                         color = color.lightGray;
                     }
                     if(car != null)
