@@ -151,10 +151,8 @@ public class SimulatorNotView extends JFrame {
             for (int row = getNumberOfRows(); row >= 0; row--) {
                 for (int place = getNumberOfPlaces(); place >= 0; place--) {
                     Location location = new Location(floor, row, place);
-                   // System.out.println(location);
-
+                    System.out.println(location);
                     if (!reservationController.isReserved(location)) {
-
                         return location;
                     }
                 }

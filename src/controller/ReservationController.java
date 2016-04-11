@@ -41,7 +41,7 @@ public class ReservationController {
             //System.out.println(reservations.getSpot(i));
             //System.out.println(spot.getLocation()); /* telt af van 3,6,30 naar 3,6,11 */
             //System.out.println("break");
-            System.out.println(location); /* telt af .... */
+            System.out.println("test"); /* telt af .... */
             if(location.isSame(spot.getLocation())){
                 //System.out.println("true");
                 return true;
