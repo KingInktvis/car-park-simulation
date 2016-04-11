@@ -39,14 +39,15 @@ public class SimulatorNotView extends JFrame {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
+
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
 
         queueViewFrame = makeFrame(new Dimension(250,100),"Queue Overview");
         statViewFrame = makeFrame(new Dimension(500,500), "Statistics");
-
         statView = new StatView(this, statViewFrame, new StatControls(this));
-        carParkView = new CarParkView(this);
+        ReservationController reservationController = new ReservationController(queues.getReservations(), this);
+        carParkView = new CarParkView(this, reservationController);
         queueView = new QueueView(this, this.queueViewFrame, this.queues);
 
         views = new ArrayList<>();
@@ -137,6 +138,20 @@ public class SimulatorNotView extends JFrame {
             }
         }
 
+        return null;
+    }
+
+    public Location getFirstLastLocation() {
+        for (int floor = getNumberOfFloors(); floor < 0; floor--) {
+            for (int row = getNumberOfRows(); row < 0; row--) {
+                for (int place = getNumberOfPlaces(); place < 0; place--) {
+                    Location location = new Location(floor, row, place);
+                    if (getCarAt(location) == null) {
+                        return location;
+                    }
+                }
+            }
+        }
         return null;
     }
     

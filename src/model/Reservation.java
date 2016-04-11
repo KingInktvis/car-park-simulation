@@ -1,17 +1,8 @@
 package model;
 
 /**
- * Created by Stijn on 08-Apr-16.
+ * Created by rik on 4/8/16.
  */
 public class Reservation extends Car {
-
-
-
-
-    public Reservation(){
-
-    }
-
-
 
 }
