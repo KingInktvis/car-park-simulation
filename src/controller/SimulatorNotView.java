@@ -21,6 +21,7 @@ public class SimulatorNotView extends JFrame {
     //protected StatsView statView;
     private ArrayList<AbstractView> views;
     private CreateQueues queues;
+    private ReservationController reservationController;
 
     protected JFrame queueViewFrame;
     private JFrame manViewFrame;
@@ -40,13 +41,15 @@ public class SimulatorNotView extends JFrame {
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
 
+
+
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
 
         queueViewFrame = makeFrame(new Dimension(250,100),"Queue Overview");
         statViewFrame = makeFrame(new Dimension(500,500), "Statistics");
         statView = new StatView(this, statViewFrame, new StatControls(this));
-        ReservationController reservationController = new ReservationController(queues.getReservations(), this);
+        reservationController = new ReservationController(queues.getReservations(), this);
         carParkView = new CarParkView(this, reservationController);
         queueView = new QueueView(this, this.queueViewFrame, this.queues);
 
@@ -62,6 +65,7 @@ public class SimulatorNotView extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         updateView();
+        reservationController.multiOfficeReserve(20);
     }
 
     private JFrame makeFrame(Dimension d, String name){
@@ -142,11 +146,11 @@ public class SimulatorNotView extends JFrame {
     }
 
     public Location getFirstLastLocation() {
-        for (int floor = getNumberOfFloors(); floor < 0; floor--) {
-            for (int row = getNumberOfRows(); row < 0; row--) {
-                for (int place = getNumberOfPlaces(); place < 0; place--) {
+        for (int floor = getNumberOfFloors(); floor > 0; floor--) {
+            for (int row = getNumberOfRows(); row > 0; row--) {
+                for (int place = getNumberOfPlaces(); place > 0; place--) {
                     Location location = new Location(floor, row, place);
-                    if (getCarAt(location) == null) {
+                    if (!reservationController.isReserved(location)) {
                         return location;
                     }
                 }

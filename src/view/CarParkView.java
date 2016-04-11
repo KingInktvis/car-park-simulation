@@ -67,9 +67,9 @@ public class CarParkView extends AbstractView {
                     Location location = new Location(floor, row, place);
                     Car car = simulatorNotView.getCarAt(location);
                     Color color = Color.white;
-                    if(reservationController.isReserved(location) == false){
-                        color = color.lightGray;
-                        System.out.println("het werkt");
+                    if(reservationController.isReserved(location)){
+                        System.out.println("sdhbf");
+                        color = Color.lightGray;
                     }
                     if(car != null)
                         switch(car.getClass().getName()){
