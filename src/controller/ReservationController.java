@@ -35,9 +35,12 @@ public class ReservationController {
 
     public boolean isReserved(Location location){
         int size = reservations.size();
-       // System.out.println(size);
-        for(int i = 0; i < size; i++){
+        //System.out.println(size);
+        for(int i = 0; i < reservations.size() ; i++){
             ReservedSpot spot = reservations.getSpot(i);
+            System.out.println(spot.getLocation());
+            System.out.println("break");
+            System.out.println(location);
             if(location.isSame(spot.getLocation())){
                 return true;
             }
@@ -46,5 +49,3 @@ public class ReservationController {
 
         }
     }
-
-}
