@@ -19,7 +19,7 @@ public class Reservations {
 
     public void addReservation(ReservedSpot reservedSpot){
         reservedSpots.add(reservedSpot);
-        System.out.println("done");
+        //System.out.println("done");
     }
 
     public ReservedSpot getSpot(int index){
