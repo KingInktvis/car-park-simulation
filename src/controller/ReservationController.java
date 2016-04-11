@@ -12,7 +12,6 @@ public class ReservationController {
     public ReservationController(Reservations reservations, SimulatorNotView simulatorNotView){
         this.reservations = reservations;
         this.simulatorNotView = simulatorNotView;
-        multiOfficeReserve(20);
     }
 
     public void reserve(Time startTime, Time stopTime){
@@ -36,12 +35,16 @@ public class ReservationController {
 
     public boolean isReserved(Location location){
         int size = reservations.size();
+       // System.out.println(size);
         for(int i = 0; i < size; i++){
             ReservedSpot spot = reservations.getSpot(i);
-            if(location.equals(spot.getLocation())){
+            if(location.isSame(spot.getLocation())){
                 return true;
             }
         }
         return false;
+
+        }
     }
+
 }

@@ -41,6 +41,8 @@ public class SimulatorNotView extends JFrame {
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
 
+
+
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
 
@@ -63,6 +65,7 @@ public class SimulatorNotView extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         updateView();
+        reservationController.multiOfficeReserve(20);
     }
 
     private JFrame makeFrame(Dimension d, String name){
@@ -143,11 +146,11 @@ public class SimulatorNotView extends JFrame {
     }
 
     public Location getFirstLastLocation() {
-        for (int floor = getNumberOfFloors(); floor < 0; floor--) {
-            for (int row = getNumberOfRows(); row < 0; row--) {
-                for (int place = getNumberOfPlaces(); place < 0; place--) {
+        for (int floor = getNumberOfFloors(); floor > 0; floor--) {
+            for (int row = getNumberOfRows(); row > 0; row--) {
+                for (int place = getNumberOfPlaces(); place > 0; place--) {
                     Location location = new Location(floor, row, place);
-                    if (getCarAt(location) == null && reservationController.isReserved(location)) {
+                    if (!reservationController.isReserved(location)) {
                         return location;
                     }
                 }

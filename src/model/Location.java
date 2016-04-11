@@ -68,4 +68,12 @@ public class Location {
         return place;
     }
 
+    public boolean isSame(Location location){
+        if (location.getFloor() == floor && location.getPlace() == place && location.getRow() == row){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
