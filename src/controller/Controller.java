@@ -70,7 +70,7 @@ public class Controller extends Config implements Runnable{
             }
             entranceCarQueue.addCar(car);
 
-            if(rand > 0.8){
+            if(rand > 0.9){
                 car = new Reservation();
                 Location freeLocation = simulatorNotView.getFirstReservedLocation();
                 if (freeLocation != null) {
