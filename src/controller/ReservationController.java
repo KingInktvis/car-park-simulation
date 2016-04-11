@@ -19,6 +19,7 @@ public class ReservationController {
         Location location = simulatorNotView.getFirstLastLocation();
         ReservedSpot reservedspot = new ReservedSpot(startTime, stopTime, location);
         reservations.addReservation(reservedspot);
+
     }
 
     public void officeReserve(){
@@ -40,5 +41,6 @@ public class ReservationController {
             }
         }
         return false;
+
     }
 }
