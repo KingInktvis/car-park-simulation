@@ -135,24 +135,21 @@ public class SimulatorNotView extends JFrame {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                    if (getCarAt(location) == null) {
-
+                    if (getCarAt(location) == null && !reservationController.isReserved(location)) {
                         return location;
                     }
                 }
             }
         }
-
         return null;
     }
 
-    public Location getFirstLastLocation() {
-        for (int floor = getNumberOfFloors(); floor >= 0; floor--) {
-            for (int row = getNumberOfRows(); row >= 0; row--) {
-                for (int place = getNumberOfPlaces(); place >= 0; place--) {
+    public Location getFirstReservedLocation() {
+        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for (int row = 0; row < getNumberOfRows(); row++) {
+                for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                    System.out.println(location);
-                    if (!reservationController.isReserved(location)) {
+                    if (getCarAt(location) == null && reservationController.isReserved(location)) {
                         return location;
                     }
                 }
@@ -160,7 +157,8 @@ public class SimulatorNotView extends JFrame {
         }
         return null;
     }
-    
+
+
     public Car getFirstLeavingCar() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {

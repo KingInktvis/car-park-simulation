@@ -65,12 +65,21 @@ public class Controller extends Config implements Runnable{
             Car car;
             if(rand < 0.7) {
                 car = new AdHocCar();
-            }else if(rand < 0.8){
-                car = new Reservation();
             }else{
                 car = new ParkingPass();
             }
             entranceCarQueue.addCar(car);
+
+            if(rand > 0.8){
+                car = new Reservation();
+                Location freeLocation = simulatorNotView.getFirstReservedLocation();
+                if (freeLocation != null) {
+                    simulatorNotView.setCarAt(freeLocation, car);
+                    Random random = new Random();
+                   int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
+                    car.setMinutesLeft(stayMinutes);
+                }
+            }
         }
     }
 
@@ -80,6 +89,7 @@ public class Controller extends Config implements Runnable{
         for (int i = 0; i < enterSpeed; i++) {
             // Find a space for this car.
             Location freeLocation = simulatorNotView.getFirstFreeLocation();
+
             if (freeLocation != null) {
                 Car car = entranceCarQueue.removeCar();
                 if (car == null) {
@@ -87,6 +97,7 @@ public class Controller extends Config implements Runnable{
                 }
                 simulatorNotView.setCarAt(freeLocation, car);
                 int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
+                System.out.println(random.nextFloat());
                 car.setMinutesLeft(stayMinutes);
             }
         }
@@ -100,7 +111,7 @@ public class Controller extends Config implements Runnable{
                 break;
             }
 
-            if(car instanceof ParkingPass){
+            if(car instanceof ParkingPass || car instanceof Reservation){
                 simulatorNotView.removeCarAt(car.getLocation());
                 exitCarQueue.addCar(car);
             }else{

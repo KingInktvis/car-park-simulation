@@ -15,7 +15,7 @@ public class ReservationController {
     }
 
     public void reserve(Time startTime, Time stopTime){
-        Location location = simulatorNotView.getFirstLastLocation();
+        Location location = simulatorNotView.getFirstFreeLocation();
         if(location != null){
             ReservedSpot reservedspot = new ReservedSpot(startTime, stopTime, location);
             reservations.addReservation(reservedspot);
@@ -35,15 +35,9 @@ public class ReservationController {
 
     public boolean isReserved(Location location){
         int size = reservations.size();
-            //System.out.println(size);
         for(int i = 0; i < size ; i++){
             ReservedSpot spot = reservations.getSpot(i);
-            //System.out.println(reservations.getSpot(i));
-            //System.out.println(spot.getLocation()); /* telt af van 3,6,30 naar 3,6,11 */
-            //System.out.println("break");
-            System.out.println("test"); /* telt af .... */
             if(location.isSame(spot.getLocation())){
-                //System.out.println("true");
                 return true;
             }
         }
