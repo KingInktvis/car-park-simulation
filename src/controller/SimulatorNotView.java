@@ -1,17 +1,31 @@
 package controller;
 
 import model.Car;
+import model.CreateQueues;
 import model.Location;
+import view.AbstractView;
 import view.CarParkView;
 import view.QueueView;
+import view.StatView;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class SimulatorNotView extends JFrame {
 
     private CarParkView carParkView;
-    protected QueueView queueView;
+    private QueueView queueView;
+    private StatView statView;
+    //protected ManagementView manView;
+    //protected StatsView statView;
+    private ArrayList<AbstractView> views;
+    private CreateQueues queues;
+
+    protected JFrame queueViewFrame;
+    private JFrame manViewFrame;
+    private JFrame statViewFrame;
+
     private int numberOfFloors;
     private int numberOfRows;
     private int numberOfPlaces;
@@ -19,17 +33,25 @@ public class SimulatorNotView extends JFrame {
     private JPanel west;
     private JPanel east;
 
-    public SimulatorNotView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+    public SimulatorNotView(int numberOfFloors, int numberOfRows, int numberOfPlaces, CreateQueues q) {
         //this.controller = controller;
+        this.queues = q;
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
 
+        queueViewFrame = makeFrame(new Dimension(250,100),"Queue Overview");
+        statViewFrame = makeFrame(new Dimension(500,500), "Statistics");
 
+        statView = new StatView(this, statViewFrame, new StatControls(this));
         carParkView = new CarParkView(this);
-        queueView = new QueueView(this);
+        queueView = new QueueView(this, this.queueViewFrame, this.queues);
+
+        views = new ArrayList<>();
+        views.add(queueView);
+        views.add(carParkView);
 
         Container contentPane = getContentPane();
         //contentPane.add(stepLabel, BorderLayout.NORTH);
@@ -37,14 +59,25 @@ public class SimulatorNotView extends JFrame {
         //contentPane.add(population, BorderLayout.SOUTH);
         pack();
         setVisible(true);
-
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         updateView();
     }
 
+    private JFrame makeFrame(Dimension d, String name){
+        JFrame f = new JFrame(name);
+        f.setVisible(false); // for clarity
+        f.setSize(d);
+        f.setDefaultCloseOperation(HIDE_ON_CLOSE);
+        return f;
+    }
 
-
+    public void showFrame(JFrame f){
+        f.setVisible(true);
+    }
     public void updateView() {
-         carParkView.updateView();
+        for(AbstractView e: views){
+            e.updateView();
+        }
     }
 
     public int getNumberOfFloors() {

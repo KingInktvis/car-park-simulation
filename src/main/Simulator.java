@@ -13,7 +13,7 @@ public class Simulator {
 
     public Simulator() {
         queues = new CreateQueues();
-        simulatorNotView = new SimulatorNotView(3, 6, 30);
+        simulatorNotView = new SimulatorNotView(3, 6, 30, queues);
         new Thread(new Controller(simulatorNotView, queues));
     }
 

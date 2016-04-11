@@ -21,7 +21,7 @@ public class EastControls extends JPanel {
         JButton qvButton = new JButton("Show Queues");
         qvButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent){
-                simulatorNotView.queueView.makeFrame();
+                simulatorNotView.showFrame(simulatorNotView.queueViewFrame);
             }
         });
 

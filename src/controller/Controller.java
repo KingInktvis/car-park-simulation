@@ -1,7 +1,9 @@
 package controller;
 
 import model.*;
+import view.AbstractView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -27,16 +29,23 @@ public class Controller extends Config implements Runnable{
     private Controls controls;
     private EastControls eastControls;
 
+
     public Controller(SimulatorNotView simulatorNotView, CreateQueues queues){
         this.simulatorNotView = simulatorNotView;
         this.queues = queues;
         setQueues();
         controls = new Controls(this, simulatorNotView);
+
+
         simulatorNotView.addWest(controls);
+
+
         eastControls = new EastControls(this, simulatorNotView);
         simulatorNotView.addEast(eastControls);
         simulatorNotView.pack();
+
     }
+
 
     private void setQueues(){
         entranceCarQueue = queues.getEntranceCarQueue();
