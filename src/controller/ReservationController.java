@@ -8,10 +8,12 @@ import model.*;
 public class ReservationController {
     private Reservations reservations;
     private SimulatorNotView simulatorNotView;
+    private Time time;
 
-    public ReservationController(Reservations reservations, SimulatorNotView simulatorNotView){
+    public ReservationController(Reservations reservations, SimulatorNotView simulatorNotView, Time time){
         this.reservations = reservations;
         this.simulatorNotView = simulatorNotView;
+        this.time = time;
     }
 
     public void reserve(Time startTime, Time stopTime){
@@ -42,6 +44,18 @@ public class ReservationController {
             }
         }
         return false;
-
-        }
     }
+
+    public boolean isNowReserved(Location location){
+        int size = reservations.size();
+        for(int i = 0; i < size ; i++){
+            ReservedSpot spot = reservations.getSpot(i);
+            if(location.isSame(spot.getLocation())){
+                if (time.getHour() > spot.getStartTime().getHour() && time.getHour() < spot.getStopTime().getHour()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}

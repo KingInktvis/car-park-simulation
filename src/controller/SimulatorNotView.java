@@ -49,7 +49,7 @@ public class SimulatorNotView extends JFrame {
         queueViewFrame = makeFrame(new Dimension(250,100),"Queue Overview");
         statViewFrame = makeFrame(new Dimension(500,500), "Statistics");
         statView = new StatView(this, statViewFrame, new StatControls(this));
-        reservationController = new ReservationController(queues.getReservations(), this);
+        reservationController = new ReservationController(queues.getReservations(), this, queues.getTime());
         carParkView = new CarParkView(this, reservationController);
         queueView = new QueueView(this, this.queueViewFrame, this.queues);
 

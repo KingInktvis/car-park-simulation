@@ -181,7 +181,6 @@ public class Controller extends Config implements Runnable{
         // Update the car park view.
         simulatorNotView.updateView();
 
-
     }
 
     public void start(){

@@ -20,5 +20,4 @@ public class Simulator {
         new Thread(new Controller(simulatorNotView, queues));
 
     }
-
 }
