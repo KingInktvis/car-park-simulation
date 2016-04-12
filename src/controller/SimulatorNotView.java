@@ -1,31 +1,27 @@
 package controller;
 
-import model.Car;
-import model.CreateQueues;
-import model.Location;
-import view.AbstractView;
-import view.CarParkView;
-import view.QueueView;
-import view.StatView;
+import model.*;
+import view.*;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SimulatorNotView extends JFrame {
 
     private CarParkView carParkView;
     private QueueView queueView;
     private StatView statView;
-    //protected ManagementView manView;
-    //protected StatsView statView;
+    private ManagementView manView;
+
     private ArrayList<AbstractView> views;
     private CreateQueues queues;
     private ReservationController reservationController;
 
     protected JFrame queueViewFrame;
-    private JFrame manViewFrame;
-    private JFrame statViewFrame;
+    protected JFrame manViewFrame;
+    protected JFrame statViewFrame;
 
     private int numberOfFloors;
     private int numberOfRows;
@@ -33,6 +29,7 @@ public class SimulatorNotView extends JFrame {
     private Car[][][] cars;
     private JPanel west;
     private JPanel east;
+    private StatControls statControls;
 
     public SimulatorNotView(int numberOfFloors, int numberOfRows, int numberOfPlaces, CreateQueues q) {
         //this.controller = controller;
@@ -42,20 +39,28 @@ public class SimulatorNotView extends JFrame {
         this.numberOfPlaces = numberOfPlaces;
 
 
-
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
 
+        statControls = new StatControls(this, q);
 
         queueViewFrame = makeFrame(new Dimension(250,100),"Queue Overview");
-        statViewFrame = makeFrame(new Dimension(500,500), "Statistics");
-        statView = new StatView(this, statViewFrame, new StatControls(this));
+        statViewFrame = makeFrame(new Dimension(370,330), "Statistics");
+        manViewFrame = makeFrame(new Dimension(300,300), "Revenue & Expectations");
+
+        statViewFrame.setResizable(false);
+
+        manView = new ManagementView(this, new ManagementController(this), manViewFrame);
+        statView = new StatView(this, statViewFrame, statControls);
         reservationController = new ReservationController(queues.getReservations(), this);
         carParkView = new CarParkView(this, reservationController);
         queueView = new QueueView(this, this.queueViewFrame, this.queues);
 
+
         views = new ArrayList<>();
         views.add(queueView);
         views.add(carParkView);
+        views.add(statView);
+        views.add(manView);
 
         Container contentPane = getContentPane();
         //contentPane.add(stepLabel, BorderLayout.NORTH);
@@ -65,6 +70,8 @@ public class SimulatorNotView extends JFrame {
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         updateView();
+
+
         reservationController.multiOfficeReserve(20);
     }
 
@@ -85,6 +92,52 @@ public class SimulatorNotView extends JFrame {
         }
     }
 
+    public ArrayList<Car> getCars(){
+        ArrayList<Car> carList = new ArrayList<>();
+        for(int x = 0; x < numberOfFloors; x++)
+            for(int y = 0; y < numberOfRows; y++)
+                for(int z = 0; z < numberOfPlaces; z++){
+                    if(cars[x][y][z] != null){
+                        carList.add(cars[x][y][z]);
+                    }
+                }
+        return carList;
+    }
+
+    public Time getTime(){
+        return queues.getTime();
+    }
+
+    public HashMap<String,Integer> countCars(){
+        int counterAdHoc = 0;
+        int counterParkingPass = 0;
+        int counterReservation = 0;
+        int counter = 0;
+        for(int x = 0; x < numberOfFloors; x++)
+            for(int y = 0; y < numberOfRows; y++)
+                for(int z = 0; z < numberOfPlaces; z++){
+                    if(cars[x][y][z] != null){
+                        counter++;
+                        switch(cars[x][y][z].getClass().getName()){
+                            case "model.AdHocCar":
+                                counterAdHoc++;
+                                break;
+                            case "model.ParkingPass":
+                                counterParkingPass++;
+                                break;
+                            case "model.Reservation":
+                                counterReservation++;
+                        }
+                    }
+                }
+
+        HashMap<String,Integer> counterMap = new HashMap<>();
+        counterMap.put("total", counter);
+        counterMap.put("adhoc", counterAdHoc);
+        counterMap.put("parkingPass", counterParkingPass);
+        counterMap.put("reservations", counterReservation);
+        return counterMap;
+    }
     public int getNumberOfFloors() {
             return numberOfFloors;
         }

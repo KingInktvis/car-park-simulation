@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import view.AbstractView;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -97,7 +98,7 @@ public class Controller extends Config implements Runnable{
                 }
                 simulatorNotView.setCarAt(freeLocation, car);
                 int stayMinutes = (int) (15 + random.nextFloat() * 10 * 60);
-                System.out.println(random.nextFloat());
+               // System.out.println(random.nextFloat());
                 car.setMinutesLeft(stayMinutes);
             }
         }
@@ -129,6 +130,7 @@ public class Controller extends Config implements Runnable{
                 break;
             }
             // TODO Handle payment.
+
             simulatorNotView.removeCarAt(car.getLocation());
             exitCarQueue.addCar(car);
         }
@@ -186,6 +188,11 @@ public class Controller extends Config implements Runnable{
 
     public void start(){
         run = true;
+        Container c = simulatorNotView.statViewFrame.getContentPane();
+        Component[] cList = c.getComponents();
+        for (Component element: cList) {
+            element.repaint();
+        }
     }
     public void start(int times){
         run = true;

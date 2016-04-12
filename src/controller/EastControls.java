@@ -26,17 +26,17 @@ public class EastControls extends JPanel {
         });
 
         JButton manButton = new JButton("Manage");
-       /* qvButton.addActionListener(new ActionListener() {
+        manButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent){
-                simulatorNotView.queueView.makeFrame();
+                simulatorNotView.showFrame(simulatorNotView.manViewFrame);
             }
-        });*/
+        });
         JButton statButton = new JButton("Stats");
-       /* qvButton.addActionListener(new ActionListener() {
+        statButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent actionEvent){
-                simulatorNotView.queueView.makeFrame();
+                simulatorNotView.showFrame(simulatorNotView.statViewFrame);
             }
-        });*/
+        });
 
 
         add(qvButton, BorderLayout.EAST);
