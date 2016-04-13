@@ -46,7 +46,7 @@ public class SimulatorNotView extends JFrame {
         queueViewFrame = makeFrame(new Dimension(250,100),"Queue Overview");
         statViewFrame = makeFrame(new Dimension(370,330), "Statistics");
         manViewFrame = makeFrame(new Dimension(400,250), "Revenue & Expectations");
-
+        setResizable(false);
         statViewFrame.setResizable(false);
 
         manView = new ManagementView(this, new ManagementController(this), manViewFrame);

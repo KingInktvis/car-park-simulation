@@ -93,19 +93,23 @@ public class ManagementView extends AbstractView{
             daysRun++;
             dayAtm = simulatorNotView.getTime().getDay();
             simulatorNotView.flushPayments();
-            totalAdd = totalAdd+total;
-        }
-        if(daysRun == 0){
-            expectedRevenue.setText("Calculating...");
-            difference.setText("");
-        }else{
+            totalAdd = total;
             expectedRevenue.setText((total/daysRun*30) + "" );
+
             if(total > (total/daysRun)){
                 difference.setText("" + (total - (total/daysRun*30)));
             }
             else{
                 difference.setText("" + (total - (total/daysRun*30)));
             }
+        }
+        if(daysRun == 0){
+            expectedRevenue.setText("Calculating...");
+            difference.setText("");
+        }
+        if(daysRun == 31){
+            daysRun = 1;
+            totalAdd = 0;
         }
         weekendLabel.setText("");
         if(dayAtm == 5 || dayAtm == 6)
