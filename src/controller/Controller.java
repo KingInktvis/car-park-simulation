@@ -130,7 +130,7 @@ public class Controller extends Config implements Runnable{
                 break;
             }
             // TODO Handle payment.
-
+            simulatorNotView.addPayment(5);
             simulatorNotView.removeCarAt(car.getLocation());
             exitCarQueue.addCar(car);
         }

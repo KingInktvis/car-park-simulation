@@ -27,8 +27,8 @@ public class SimulatorNotView extends JFrame {
     private int numberOfRows;
     private int numberOfPlaces;
     private Car[][][] cars;
-    private JPanel west;
-    private JPanel east;
+    private ArrayList<Integer> payments;
+
     private StatControls statControls;
 
     public SimulatorNotView(int numberOfFloors, int numberOfRows, int numberOfPlaces, CreateQueues q) {
@@ -45,7 +45,7 @@ public class SimulatorNotView extends JFrame {
 
         queueViewFrame = makeFrame(new Dimension(250,100),"Queue Overview");
         statViewFrame = makeFrame(new Dimension(370,330), "Statistics");
-        manViewFrame = makeFrame(new Dimension(300,300), "Revenue & Expectations");
+        manViewFrame = makeFrame(new Dimension(400,250), "Revenue & Expectations");
 
         statViewFrame.setResizable(false);
 
@@ -55,7 +55,7 @@ public class SimulatorNotView extends JFrame {
         carParkView = new CarParkView(this, reservationController);
         queueView = new QueueView(this, this.queueViewFrame, this.queues);
 
-
+        payments = new ArrayList<>();
         views = new ArrayList<>();
         views.add(queueView);
         views.add(carParkView);
@@ -138,6 +138,15 @@ public class SimulatorNotView extends JFrame {
         counterMap.put("reservations", counterReservation);
         return counterMap;
     }
+
+    public void addPayment(int money){
+        payments.add(money);
+    }
+    public void flushPayments(){
+        payments = null;
+        payments = new ArrayList<>();
+    }
+
     public int getNumberOfFloors() {
             return numberOfFloors;
         }
@@ -227,13 +236,16 @@ public class SimulatorNotView extends JFrame {
         return null;
     }
 
+    public ArrayList<Integer> getPayments(){
+        return this.payments;
+    }
     public void addWest(JPanel west){
-        this.west = west;
+        //this.west = west;
         getContentPane().add(west, BorderLayout.WEST);
     }
 
     public void addEast(JPanel east){
-        this.east = east;
+        //this.east = east;
         getContentPane().add(east, BorderLayout.EAST);
     }
     
